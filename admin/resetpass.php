@@ -1,3 +1,8 @@
+<?php
+  include "inc/db.php";
+  session_start();
+  ob_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,16 +26,16 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <a href="index.php"><b>Admin</b>LTE</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
 
-      <form action="login.html" method="post">
+      <form action="" method="POST">
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="email" class="form-control" placeholder="Email" name="email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -38,7 +43,23 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Confirm Password">
+          <input type="password" class="form-control" placeholder="Old Password" name="oldpass">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" name="new">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Confirm Password" name="new_1">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -47,11 +68,42 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block">Change password</button>
+            <button type="submit" name="change" class="btn btn-primary btn-block">Change password</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
+
+      <?php 
+        if (isset($_POST['change'])) {
+          $uemail      = mysqli_real_escape_string( $db , $_POST['email'] );
+          $oldpass    = mysqli_real_escape_string( $db , $_POST['oldpass'] );
+         
+          $shq        = sha1($oldpass);
+         
+          $new        = mysqli_real_escape_string( $db , $_POST['new'] );
+          $new_1      = mysqli_real_escape_string( $db , $_POST['new_1'] );
+
+          $read_user  = "SELECT * FROM user WHERE user_email = '$uemail' ";
+          $send_user  = mysqli_query($db , $read_user);
+          while ($row = mysqli_fetch_assoc($send_user) ) {
+            $email    = $row['user_email'];  
+            $pass     = $row['user_password'];   
+          
+          if ( $shq  == $pass && $new == $new_1 ) {
+            $sha1      = sha1($new);
+            $sql       = "UPDATE user SET user_password='$sha1' WHERE user_email = '$uemail'  ";
+            $cng_pass  = mysqli_query($db , $sql);
+              if ($cng_pass) {
+                header("location: index.php");
+              }
+              else{
+                die("Failed To change the Password " . mysqli_error($db) );
+              }
+            }
+          }//while end
+        } //main if close
+      ?>
 
       <p class="mt-3 mb-1">
         <a href="index.php">Login</a>
@@ -68,6 +120,8 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-
+<?php
+  ob_end_flush();
+?>
 </body>
 </html>

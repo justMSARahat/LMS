@@ -2,6 +2,11 @@
   include "db.php";
   session_start();
   ob_start();
+
+  if ( empty($_SESSION['user_email']) || empty($_SESSION['user_password']) || $_SESSION['user_status'] != 1 ) {
+    header("location:index.php");
+  }
+
 ?>
 <!DOCTYPE html>
 <html>

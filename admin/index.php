@@ -1,3 +1,8 @@
+<?php
+  include "inc/db.php";
+  session_start();
+  ob_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +33,9 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="main.php" method="post">
+      <form action="" method="POST">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" name="email" required="required">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -38,7 +43,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" name="password" required="required">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -48,19 +53,49 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
               <label for="remember">
-                Remember Me
               </label>
             </div>
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" name="login" class="btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
+
+      <?php 
+        if (isset($_POST['login'])) {
+          $u_email    = mysqli_real_escape_string( $db , $_POST['email'] );
+          $u_pass     = mysqli_real_escape_string( $db , $_POST['password'] );
+          
+          $password   = sha1($u_pass);
+
+          $read_user  = "SELECT * FROM user WHERE user_email = '$u_email' ";
+          $send_user  = mysqli_query($db , $read_user);
+          while ($row = mysqli_fetch_assoc($send_user) ) {
+            $_SESSION['user_id']        = $row['user_id']; 
+            $_SESSION['user_image']     = $row['user_image'];  
+            $_SESSION['user_name']      = $row['user_name']; 
+            $_SESSION['user_email']     = $row['user_email'];  
+            $_SESSION['user_password']  = $row['user_password']; 
+            $_SESSION['user_phone']     = $row['user_phone'];  
+            $_SESSION['user_address']   = $row['user_address'];  
+            $_SESSION['user_role']      = $row['user_role'];
+            $_SESSION['user_status']    = $row['user_status'];
+            $_SESSION['user_gender']    = $row['user_gender'];
+            $_SESSION['user_join_date'] = $row['user_join_date'];  
+          
+          if ( $u_email == $_SESSION['user_email'] && $password == $_SESSION['user_password'] ) {
+            header("location: main.php");
+            }
+          else{
+            header("location: index.php");
+            }
+          }//while end
+        } //main if close
+      ?>
 
       <p class="mb-1">
         <a href="resetpass.php">I forgot my password</a>
@@ -80,6 +115,8 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-
+<?php
+  ob_end_flush();
+?>
 </body>
 </html>

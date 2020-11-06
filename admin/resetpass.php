@@ -54,7 +54,7 @@
       </form>
 
       <p class="mt-3 mb-1">
-        <a href="login.html">Login</a>
+        <a href="index.php">Login</a>
       </p>
     </div>
     <!-- /.login-card-body -->

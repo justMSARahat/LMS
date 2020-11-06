@@ -38,7 +38,7 @@
  
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-book"></i>
               <p>
                 Books
                 <i class="right fas fa-angle-left"></i>
@@ -68,14 +68,14 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-th-large"></i>
               <p>Category</p>
             </a>
           </li>    
  
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-tasks"></i>
               <p>
                 Library Management
                 <i class="right fas fa-angle-left"></i>
@@ -108,7 +108,7 @@
           
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-user"></i>
               <p>
                 Users
                 <i class="right fas fa-angle-left"></i>
@@ -138,14 +138,14 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-sliders-h"></i>
               <p>Settings</p>
             </a>
           </li> 
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
+              <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Logout</p>
             </a>
           </li> 

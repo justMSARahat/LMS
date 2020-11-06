@@ -51,7 +51,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-2">
                         <div class="logo-box">
-                            <a href="index-2.html" class="logo"><img src="images/logo.png" alt="logo"></a>
+                            <a href="index.php" class="logo"><img src="images/logo.png" alt="logo"></a>
                             <div class="menu-toggler">
                                 <i class="la la-bars"></i>
                                 <i class="la la-times"></i>

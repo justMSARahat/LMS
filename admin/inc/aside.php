@@ -67,7 +67,7 @@
           </li> 
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="category.php" class="nav-link">
               <i class="nav-icon fas fa-th-large"></i>
               <p>Category</p>
             </a>
@@ -116,19 +116,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="user.php?action=manage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage All User</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="user.php?action=add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add New User</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
+                <a href="user.php?action=pending" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pending User</p>
                 </a>

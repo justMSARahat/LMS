@@ -148,8 +148,6 @@
 
             $sha1= sha1($pass);
 
-
-
             $sql = "INSERT INTO user (user_image,user_name,user_email,user_password,user_phone,user_address,user_role,user_status,user_gender,user_join_date) VALUES ('$img_name','$name','$email','$sha1','$phone','$address',0,3,'$gender',now())";
             $query = mysqli_query($db , $sql);
             if ($query) {
@@ -157,15 +155,7 @@
             }else{
               die("Failed to add user ". mysqli_error($db) );
             }
-
-
-
           }
-
-
-
-
-
         } //isset if close
       ?>
 

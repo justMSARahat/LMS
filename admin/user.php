@@ -282,14 +282,27 @@
           $imagesize    = $_FILES['user_image']['size'];
           $imagetemp    = $_FILES['user_image']['tmp_name'];
           //extension
-          $supportedext = array("jpg","jpeg","png");
-          $nameexplode  = strtolower(end(explode('.', $imagename) ) );
+          $exploded = explode('.', $imagename);
+          $last_element = end($exploded);
+          $imageExtention = strtolower($last_element);
+          $imageAllowedExtention = array("jpg","jpeg","png");
+
+
+
           //form error
           $error = array();
-          if ( $name > 4) {
+          if ( strlen($user_name) < 4) {
             $error = "User Name is Too Short";
           }
-          if ( $pass != $repass) {
+          if ( !empty($imagename) ){
+            if ( !empty($imagename) && !in_array($imageExtention, $imageAllowedExtention) ){
+              $formerror = 'Invalid Image Format. Please Upload a JPG, JPEG or PNG image';
+            }
+            if ( !empty($imagesize) && $imagesize > 2097152 ){
+              $formerror = 'Image Size is Too Large! Allowed Image size Max is 2 MB.';
+            }
+          }
+          if ( $user_password != $repassword) {
             $error = "Password Dose Not Match";
           }
           if ( empty($imagename)) {
@@ -329,9 +342,162 @@
               $user_status    = $row['user_status'];
               $user_gender    = $row['user_gender'];
               $user_join_date = $row['user_join_date'];
+          ?>
+            <section class="content">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-12">
+                    <!-- Default box -->
+                    <div class="card">
+                      <div class="card-header">
+                        <h3 class="card-title">Edit User</h3>
+
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fas fa-minus"></i></button>
+                          <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fas fa-times"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body" style="display: block;">
+                        <form action="user.php?action=update" method="POST" enctype="multipart/form-data">
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">Name</label>
+                              <input type="name" class="form-control" id="inputEmail4" placeholder="Full Name" name="user_name" required="required" value="<?php echo $user_name;?>" >
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="inputEmail4">Email</label>
+                              <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="user_email" required="required" value="<?php echo $user_email;?>">
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-8">
+                              <label for="inputPassword4">Address</label>
+                              <input type="text" class="form-control" id="inputPassword4" placeholder="Address" name="user_address" required="required" value="<?php echo $user_address;?>">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">Phone Number</label>
+                              <input type="text" class="form-control" id="inputPassword4" placeholder="Contact Phone Number" name="user_phone" required="required" value="<?php echo $user_phone;?>">
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">Role</label>
+                              <select name="user_role" id="" class="form-control">
+                                <option value="1" <?php if( $user_role == 1 ){ echo "selected"; } ?> >Super Admin</option>
+                                <option value="2" <?php if( $user_role == 2 ){ echo "selected"; } ?> >Editor/Librarian</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">Gender</label>
+                              <select name="user_gender" id="" class="form-control">
+                                <option value="1" <?php if( $user_gender == 1 ){ echo "selected"; } ?> >Male</option>
+                                <option value="2" <?php if( $user_gender == 2 ){ echo "selected"; } ?> >Female</option>
+                                <option value="3" <?php if( $user_gender == 3 ){ echo "selected"; } ?> >Other</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="inputPassword4">Status</label>
+                              <select name="user_status" id="" class="form-control">
+                                <option value="1" <?php if( $user_status == 1 ){ echo "selected"; } ?> >Active</option>
+                                <option value="2" <?php if( $user_status == 2 ){ echo "selected"; } ?> >Inactive</option>
+                                <option value="3" <?php if( $user_status == 3 ){ echo "selected"; } ?> >Pending</option>
+                                <option value="4" <?php if( $user_status == 4 ){ echo "selected"; } ?> >Disabled</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                              <label for="exampleFormControlFile1">Profile Picture</label>
+                              <?php
+                                if (!empty($user_image)) { ?>
+                                  <img src="img/user/<?php echo $user_image ; ?>" alt="" class="up_img">
+                                <?php } else{
+                                  echo "No Image Found";
+                                }
+                              ?>
+                              <input type="file" class="form-control-file" id="exampleFormControlFile1" name="user_image">
+                            </div>
+                          </div>
+                          <button type="submit" name="update" class="btn btn-primary">Update</button>
+                          <input type="hidden" value="<?php echo $user_id; ?> " name="edit_id" >
+                        </form>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                  </div>
+                </div>
+              </div>
+            </section>
+          <?php
             }
           }
+        ?>
+      <?php }
+      else if ($user == 'update') { 
+        if ( $_SERVER['REQUEST_METHOD'] = 'POST' ) {
+          $edit_id        = $_POST['edit_id'];
+          $user_name      = $_POST['user_name'];
+          $user_email     = $_POST['user_email'];
+          $user_phone     = $_POST['user_phone'];
+          $user_address   = $_POST['user_address'];
+          $user_role      = $_POST['user_role'];
+          $user_status    = $_POST['user_status'];
+          $user_gender    = $_POST['user_gender'];
+           //image preparing
+          $imagename    = $_FILES['user_image']['name'];
+          $imagetype    = $_FILES['user_image']['type'];
+          $imagesize    = $_FILES['user_image']['size'];
+          $imagetemp    = $_FILES['user_image']['tmp_name'];
+          //extension
+          $supportedext = array("jpg","jpeg","png");
+          $nameexplode  = strtolower(end(explode('.', $imagename) ) );
+          //form error
+            if (!empty($imagename)) {
+              $error = array();
+                if ( $user_name > 4) {
+                  $error = "User Name is Too Short";
+                }
+                if ( empty($imagename)) {
+                  $error = "Profile Picture Not Found";
+                }
+                if (empty($error)) {
+                  $remove = "SELECT * FROM user WHERE user_id='$edit_id' ";
+                  $cmd    = mysqli_query($db,$remove);
+                  while ($row = mysqli_fetch_assoc($cmd) ) {
+                    $user_id     = $row['user_id'];
+                    $user_image   = $row['user_image'];  
+                  }
+                  unlink("img/user/".$user_image);
+    
+                  $img_name = rand(1, 99999).'_'.$imagename;
+                  move_uploaded_file($imagetemp, "img/user/$img_name");
 
+                  $sql = "UPDATE user SET user_image='$img_name',user_name='$user_name',user_email='$user_email',user_phone='$user_phone',user_address='$user_address',user_role='$user_role',user_status='$user_status',user_gender='$user_gender' WHERE user_id='$edit_id'";
+                  $query = mysqli_query($db , $sql);
+                  if ($query) {
+                    header("location:user.php?action=manage");
+                  }else{
+                    die("Failed to add user ". mysqli_error($db) );
+                  }
+                }
+            }
+            else{
+              $error = array();
+                if ( $user_name > 4) {
+                  $error = "User Name is Too Short";
+                }
+                if (empty($error)) {
+                  $sql = "UPDATE user SET user_name='$user_name',user_email='$user_email',user_phone='$user_phone',user_address='$user_address',user_role='$user_role',user_status='$user_status',user_gender='$user_gender' WHERE user_id='$edit_id' ";
+                  $query = mysqli_query($db , $sql);
+                  if ($query) {
+                    header("location:user.php?action=manage");
+                  }else{
+                    die("Failed to add user ". mysqli_error($db) );
+                  }
+                }
+            }
+        }
         ?>
       <?php }
       else if ($user == 'pending') { ?>

@@ -46,19 +46,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="lib.php?action=manage" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Manage All Books</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="lib.php?action=add" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Add Books</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
+                <a href="lib.php?action=pending" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Trash</p>
                 </a>
@@ -137,7 +137,14 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <?php 
+              $sql = "SELECT * FROM settings";
+              $que = mysqli_query($db,$sql);
+              while ($row = mysqli_fetch_assoc($que) ) {
+                $id = $row['id'];
+              }
+             ?>
+            <a href="settings.php?website=<?php echo $id; ?>" class="nav-link">
               <i class="nav-icon fas fa-sliders-h"></i>
               <p>Settings</p>
             </a>

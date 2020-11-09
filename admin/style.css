@@ -4,3 +4,27 @@
 	border-radius: 50%;
 	border: 1px solid black;
 }
+.up_img{
+	height: 100px;
+	width: 100px;
+	border: 1px solid black;
+	display: block;
+	margin-bottom: 5px;
+}
+.logo{
+	height: 100px;
+	width: 100px;
+	border: 1px solid black;
+	display: block;
+	margin-bottom: 5px;
+}
+.Favicon{
+	height: 50px;
+	width: 50px;
+	border: 1px solid black;
+	display: block;
+	margin-bottom: 5px;
+}
+.md_1{
+	text-align: left !important;
+}

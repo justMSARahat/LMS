@@ -48,6 +48,15 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+ <script>
+  CKEDITOR.replace( 'description' );
+</script>
+ <script>
+  CKEDITOR.replace( 'editor' );
+</script>
+
+
 <?php
   ob_end_flush();
 ?>

@@ -1,11 +1,11 @@
 <!-- start cssload-loader -->
-<div class="preloader">
+<!-- <div class="preloader">
     <div class="loader">
         <svg class="spinner" viewBox="0 0 50 50">
             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
         </svg>
     </div>
-</div>
+</div> -->
 <!-- end cssload-loader -->
 
 <!--======================================
@@ -33,13 +33,23 @@
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                             </ul>
                         </div><!-- end header-right-info -->
-                        <div class="header-right-info">
-                            <ul class="header-action-list">
-                                <li><a href="login.php">Login</a></li>
-                                <li>or</li>
-                                <li><a href="sign-up.php">Register</a></li>
-                            </ul>
-                        </div><!-- end header-right-info -->
+                        <?php 
+                            if ( empty($_SESSION['users_email']) || empty($_SESSION['users_password']) || $_SESSION['users_status'] != 1 ) { ?>
+                                <div class="header-right-info">
+                                    <ul class="header-action-list">
+                                        <li><a href="login.php">Login</a></li>
+                                        <li>or</li>
+                                        <li><a href="sign-up.php">Register</a></li>
+                                    </ul>
+                                </div><!-- end header-right-info -->
+                            <?php } else{ ?>
+                                <div class="header-right-info">
+                                    <ul class="header-action-list">
+                                        <li><a href="logout.php">Logout</a></li>
+                                    </ul>
+                                </div>
+                            <?php }
+                         ?>
                     </div><!-- end header-widget -->
                 </div><!-- end col-lg-6 -->
             </div><!-- end row -->

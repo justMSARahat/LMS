@@ -1,4 +1,4 @@
-<!-- Header Connection -->
+ <!-- Header Connection -->
 <?php include "inc/header.php"; ?>
 <!-- Header Connection -->
 
@@ -6,6 +6,13 @@
 <!-- nav Connection -->
 <?php include "inc/nav.php"; ?>
 <!-- nav Connection -->
+
+
+<?php 
+    if ( empty($_SESSION['users_email']) || empty($_SESSION['users_password']) || $_SESSION['users_status'] != 1 ) { 
+        header("location:login.php");
+
+      } else if( !empty($_SESSION['users_email']) || !empty($_SESSION['users_password']) || $_SESSION['users_status'] = 1 ) { ?>
 
 <!-- ================================
     START DASHBOARD AREA
@@ -94,6 +101,11 @@
 <!-- ================================
     END DASHBOARD AREA
 ================================= -->
+        
+
+    <?php }
+ ?>
+
 
 <!-- start scroll top -->
 <div id="scroll-top">

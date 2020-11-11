@@ -35,27 +35,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                                <?php 
-                                    if (isset($_POST['search'])) {
-                                        $tag    = $_POST['search'];
-                                        $read   = "SELECT * FROM book WHERE book_title LIKE '%$tag%' OR book_writer LIKE '%$tag%' OR book_pub LIKE '%$tag%' OR book_meta LIKE '%$tag%' ORDER BY book_id DESC" ;  
-                                        $send   = mysqli_query( $db , $read);
+                    <?php 
+                    	if (isset($_GET['catid'])) {
+                    		$cat_book = $_GET['catid'];
+                            $read   = "SELECT * FROM book WHERE book_cat = '$cat_book' ";  
+                            $send   = mysqli_query( $db , $read);
 
-                                        $num    = mysqli_num_rows($send);
+                            $num    = mysqli_num_rows($send);
 
-                                        if ($num == 0) { ?>
-                                            <div class="filter-bar d-flex justify-content-between align-items-center">
-                                                <ul class="filter-bar-tab nav nav-tabs align-items-center" id="myTab" role="tablist">
-                                                    <li class="nav-item font-size-15">Opps!!! Nothing Found</li>
-                                                </ul>
-                                            </div><!-- end filter-bar -->
-                                <?php   } else{ ?>
-
-                                            <div class="filter-bar d-flex justify-content-between align-items-center">
-                                                <ul class="filter-bar-tab nav nav-tabs align-items-center" id="myTab" role="tablist">
-                                                    <li class="nav-item font-size-15"><?php echo $num; ?>-Book Found</li>
-                                                </ul>
-                                            </div><!-- end filter-bar -->
+                            if ($num == 0) { ?>
+			                    <div class="filter-bar d-flex justify-content-between align-items-center">
+			                        <ul class="filter-bar-tab nav nav-tabs align-items-center" id="myTab" role="tablist">
+			                            <li class="nav-item font-size-15">Opps!!! Nothing Found</li>
+			                        </ul>
+			                    </div><!-- end filter-bar -->
+                    <?php   } else{ ?>
+                            <div class="filter-bar d-flex justify-content-between align-items-center">
+			                        <ul class="filter-bar-tab nav nav-tabs align-items-center" id="myTab" role="tablist">
+			                            <li class="nav-item font-size-15"><?php echo $num; ?>-Book Found</li>
+			                        </ul>
+			                    </div><!-- end filter-bar -->
                 </div><!-- end col-lg-12 -->
             </div><!-- end row -->
             <div class="course-content-wrapper mt-4">
@@ -64,7 +63,6 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view" aria-labelledby="grid-view-tab">
                                 <div class="row">
-
                                     <?php
                                     while ( $row = mysqli_fetch_assoc($send) ) {
                                         $book_id     = $row['book_id'];
@@ -77,6 +75,7 @@
                                         $book_meta   = $row['book_meta'];
                                         $book_img    = $row['book_img'];
                                        ?>
+
                                     <div class="col-lg-4">
                                         <div class="card-item card-preview" data-tooltip-content="#tooltip_content_1">
                                             <div class="card-image">
@@ -99,10 +98,21 @@
                                     </div><!-- end col-lg-6 -->
 
                                 <?php    
-                                    }
+                                	}
 
-                                }
-                                 ?>
+	                            }
+
+	                           
+	                            
+
+
+	                                    
+	                                    
+
+
+	                                    
+
+                               	 ?>
                                 <?php  }   ?>
                                 </div><!-- end course-block -->
                             </div><!-- end tab-pane -->

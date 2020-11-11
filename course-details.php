@@ -65,23 +65,25 @@
 						<h5 class="sizes">Release Date:
 							<span class="size" ><?php echo $book_rel; ?></span>
 						</h5>
+						 <?php 
+						 	if ( empty($_SESSION['users_email']) || empty($_SESSION['users_password']) || $_SESSION['users_status'] != 1 ) { ?> 
+        						<div class="alert alert-warning">You Have To Log in For Order This</div>
+
+      					  <?php	} else if( !empty($_SESSION['users_email']) || !empty($_SESSION['users_password']) || $_SESSION['users_status'] = 1 ) { ?>
 						 <?php
-				            $aut_id = $_SESSION['users_id']; 
-	                        $r = "SELECT * FROM manage WHERE book_id='$id' AND author_id='$aut_id' ";
-	                        $a = mysqli_query($db,$r);
-	                        $n = mysqli_num_rows($a); 
-	                      	if ($n == 1) { ?>
-	                      	<div class="action">
-								<span class="alert alert-warning">You Already Have This Book</span>
-							</div>
-	                      <?php } else{ ?>
-							<div class="action">
-								<a href="course-details.php?orderid=<?php echo $book_id; ?>" class="add-to-cart btn btn-default" type="button" data-toggle="modal" data-target="#order<?php echo $book_id; ?>"> Book Now </a>
-							</div>
-	                      <?php }
-
-
-	                      ?>
+					            $aut_id = $_SESSION['users_id']; 
+		                        $r = "SELECT * FROM manage WHERE book_id='$id' AND author_id='$aut_id' ";
+		                        $a = mysqli_query($db,$r);
+		                        $n = mysqli_num_rows($a); 
+		                      	if ($n == 1) { ?>
+		                      	<div class="action">
+									<span class="alert alert-warning">You Already Have This Book</span>
+								</div>
+		                      <?php } else{ ?>
+								<div class="action">
+									<a href="course-details.php?orderid=<?php echo $book_id; ?>" class="add-to-cart btn btn-default" type="button" data-toggle="modal" data-target="#order<?php echo $book_id; ?>"> Book Now </a>
+								</div>
+	                      <?php } ?>
 						<!-- Modal -->
 						<div class="modal fade" id="order<?php echo $book_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 						  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -148,6 +150,8 @@
 						    </div>
 						  </div>
 						</div>
+
+      						<?php }	?>
 					</div>
 				</div>
                 <?php

@@ -1,11 +1,11 @@
-
+<!-- 
   <div class="preloader">
     <div class="loader">
         <svg class="spinner" viewBox="0 0 50 50">
             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
         </svg>
     </div>
-</div> 
+</div>  -->
 
 <!--======================================
         START HEADER AREA
@@ -98,7 +98,7 @@
                                                         </li>
                                                     <?php }else{ ?>
                                                         <li>
-                                                            <a href="course-grid.html"><?php echo "$cat_name" ; ?> <i class="la la-angle-right"></i></a>
+                                                            <a href="cat.php?catid=<?php echo "$cat_id" ; ?>"><?php echo "$cat_name" ; ?> <i class="la la-angle-right"></i></a>
                                                             <ul class="sub-menu">
                                                                <?php 
                                                                     while ( $row = mysqli_fetch_assoc($senda) ) {
@@ -116,11 +116,11 @@
                                 </ul>
                             </div><!-- end menu-category -->
                             <div class="contact-form-action">
-                                <form method="POST" action="search.php">
+                                <form action="search.php" method="POST">
                                     <div class="input-box">
                                         <div class="form-group">
-                                            <input class="form-control" type="text" name="search" placeholder="Search for anything">
-                                            <button class="la la-search search-icon" type="submit"></button>
+                                            <input class="form-control" type="text" name="search" placeholder="What do you want to learn?">
+                                                <button class="la la-search search-icon" type="submit"></button>
                                         </div>
                                     </div><!-- end input-box -->
                                 </form>

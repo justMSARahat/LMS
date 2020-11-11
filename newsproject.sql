@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2020 at 01:01 PM
+-- Generation Time: Nov 11, 2020 at 03:23 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -46,9 +46,9 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`book_id`, `book_title`, `book_desc`, `book_cat`, `book_writer`, `book_pub`, `stock`, `book_rel`, `book_meta`, `book_img`, `trash`) VALUES
-(1, 'Bangla 1st', 'Bangla 1st', 28, 'MSA Rahat', 'Rahat Publication', 0, '2020-11-09', 'hello', 'hello.png', 0),
-(2, 'eng1st', 'Bangla 2st', 28, 'MSA Rahat', 'Rahat Publication', 10, '2020-11-09', 'hello', 'hello.png', 0),
-(4, 'math 1st', 'Bangla 3st', 28, 'MSA Rahat', 'Rahat Publication', 10, '2020-11-09', 'hello', 'hello.png', 0),
+(1, 'Bangla 1st', '<p>Bangla 1st&quot; &gt;</p>\r\n', 28, 'MSA Rahat', 'Rahat Publication', 0, '2020-11-09', 'hello', '10206_FB_IMG_16005069901605551.jpg', 0),
+(2, 'eng1st', '<p>Bangla 2st&quot; &gt;</p>\r\n', 28, 'MSA Rahat', 'Rahat Publication', 10, '2020-11-09', 'hello', '53173_FB_IMG_16005069901605551.jpg', 0),
+(4, 'math 1st', '<p>Bangla 3st&quot; &gt;</p>\r\n', 28, 'MSA Rahat', 'Rahat Publication', 10, '2020-11-09', 'hello', '58094_FB_IMG_16005069901605551.jpg', 0),
 (5, 'AMA', '<p>dfgsdfgbs</p>\r\n', 23, 'dfsgs', 'sdfgas', 5, '2020-11-09', 'cxzv', '54780_FB_IMG_16005069901605551.jpg', 0);
 
 -- --------------------------------------------------------
@@ -60,7 +60,7 @@ INSERT INTO `book` (`book_id`, `book_title`, `book_desc`, `book_cat`, `book_writ
 CREATE TABLE `category` (
   `cat_id` int(11) NOT NULL,
   `cat_name` varchar(255) NOT NULL,
-  `cat_parrant` varchar(11) NOT NULL,
+  `cat_parrant` varchar(11) NOT NULL DEFAULT '0',
   `cat_status` int(1) NOT NULL COMMENT '1=active 2=inactive'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -69,9 +69,35 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`cat_id`, `cat_name`, `cat_parrant`, `cat_status`) VALUES
-(23, 'raha', '24', 2),
-(24, 'ra', '', 1),
-(28, 'SSC', '', 1);
+(29, 'SSC', '', 1),
+(30, 'HSC', '', 1),
+(31, 'PSC', '', 1),
+(32, 'JSC', '', 1),
+(33, 'Master', '', 1),
+(34, 'Bangla For PSC', '29', 1),
+(35, 'English For Today', '30', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `manage`
+--
+
+CREATE TABLE `manage` (
+  `id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `order_date` date NOT NULL,
+  `return_date` date NOT NULL,
+  `is_returned` int(1) NOT NULL COMMENT '0=back 1=have'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `manage`
+--
+
+INSERT INTO `manage` (`id`, `book_id`, `author_id`, `order_date`, `return_date`, `is_returned`) VALUES
+(8, 5, 2, '2020-11-11', '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -143,6 +169,33 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`user_id`, `user_image`, `user_name`, `user_email`, `user_password`, `user_phone`, `user_address`, `user_role`, `user_status`, `user_gender`, `user_join_date`) VALUES
 (1, '12148_FB_IMG_16005069901605551.jpg', 'MSA', 'just@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '+8801756689907', 'sylhet', 1, 1, 1, '2020-11-10');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `users_id` int(11) NOT NULL,
+  `users_name` varchar(255) NOT NULL,
+  `users_email` varchar(255) NOT NULL,
+  `users_password` varchar(255) NOT NULL,
+  `users_phone` varchar(255) NOT NULL,
+  `users_addrfess` text NOT NULL,
+  `users_status` int(1) NOT NULL,
+  `users_gender` int(1) NOT NULL,
+  `users_image` text NOT NULL,
+  `users_joindate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`users_id`, `users_name`, `users_email`, `users_password`, `users_phone`, `users_addrfess`, `users_status`, `users_gender`, `users_image`, `users_joindate`) VALUES
+(2, 'MSA', '1@gmail.com', '356a192b7913b04c54574d18c28d46e6395428ab', '017566899078', 'sylhet', 1, 1, '35073_FB_IMG_16005069901605551.jpg', '2020-11-03'),
+(4, 'MSA Rahat', 'just@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '8801756689907', 'subhanighat', 1, 1, '35073_FB_IMG_16005069901605551.jpg', '2020-11-10');
+
 --
 -- Indexes for dumped tables
 --
@@ -158,6 +211,12 @@ ALTER TABLE `book`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `manage`
+--
+ALTER TABLE `manage`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `post`
@@ -178,6 +237,12 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`users_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -191,7 +256,13 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `manage`
+--
+ALTER TABLE `manage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -204,6 +275,12 @@ ALTER TABLE `post`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `users_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

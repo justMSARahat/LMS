@@ -21,8 +21,8 @@
                     </div>
                     <ul class="breadcrumb__list">
                         <li class="active__list-item"><a href="index-2.html">home</a></li>
-                        <li class="active__list-item">blog</li>
-                        <li>Blog Grid</li>
+                        <li class="active__list-item">Books</li>
+                        <li>All Books</li>
                     </ul>
                 </div><!-- end breadcrumb-content -->
             </div><!-- end col-lg-12 -->

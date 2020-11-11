@@ -1,4 +1,4 @@
- <!-- Header Connection -->
+  <!-- Header Connection -->
 <?php include "inc/header.php"; ?>
 <!-- Header Connection -->
 
@@ -24,38 +24,10 @@
     
     <div class="dashboard-content-wrap">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-content dashboard-bread-content d-flex align-items-center justify-content-between">
-                        <div class="user-bread-content d-flex align-items-center">
-                            <div class="bread-img-wrap">
-                                <img src="images/team10.jpg" alt="">
-                            </div>
-                            <div class="section-heading">
-                                <h2 class="section__title font-size-30">Howdy, Alex Smith</h2>
-                                <div class="rating-wrap d-flex mt-2">
-                                    <ul class="review-stars">
-                                        <li><span class="la la-star"></span></li>
-                                        <li><span class="la la-star"></span></li>
-                                        <li><span class="la la-star"></span></li>
-                                        <li><span class="la la-star"></span></li>
-                                        <li><span class="la la-star-o"></span></li>
-                                    </ul>
-                                    <span class="star-rating-wrap">
-                                        <span class="star__rating">4.2</span>
-                                        <span class="star__count">(70)</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="upload-btn-box">
-                            <form action="#" method="post" enctype="multipart/form-data">
-                                <input type="file" name="files[]" class="filer_input" multiple="multiple">
-                            </form>
-                        </div>
-                    </div>
-                </div><!-- end col-lg-12 -->
-            </div><!-- end row -->
+
+            <?php include "inc/dashheader.php"; ?>
+
+            
             <div class="row mt-5">
                 <div class="col-lg-12">
                     <div class="section-block"></div>
@@ -67,34 +39,33 @@
                 </div>
             </div>
             <div class="row mt-5">
+                <?php
+                    $aut_id = $_SESSION['users_id']; 
+                    $read   = "SELECT * FROM users WHERE users_id = '$aut_id' ";  
+                    $rece   = mysqli_query( $db , $read);
+                    while ( $row = mysqli_fetch_assoc($rece) ) {
+                        extract($row);
+                    ?>
                 <div class="col-lg-8">
                     <div class="profile-detail pb-5">
                         <ul class="list-items">
-                            <li><span class="profile-name">Registration Date:</span><span class="profile-desc">Sat 20 Apr 2019, 03:50:30 AM</span></li>
-                            <li><span class="profile-name">First Name:</span><span class="profile-desc">Alex</span></li>
-                            <li><span class="profile-name">Last Name:</span><span class="profile-desc">Smith</span></li>
-                            <li><span class="profile-name">User Name:</span><span class="profile-desc">alex-admin</span></li>
-                            <li><span class="profile-name">Email:</span><span class="profile-desc">alexsmith@gmail.com</span></li>
-                            <li><span class="profile-name">Phone Number:</span><span class="profile-desc">(91) 7547 622250</span></li>
-                            <li>
-                                <span class="profile-name">Bio:</span>
-                                <span class="profile-desc">Hello! I am a Alex Smith, Washington area graphic designer with over 6 years of graphic design experience. I specialize in designing infographics, icons, brochures, and flyers.</span>
-                            </li>
+                            <li><span class="profile-name">Registration Date:</span><span class="profile-desc"><?php echo $users_joindate; ?></span></li>
+                            <li><span class="profile-name">User's Name:</span><span class="profile-desc"><?php echo $users_name; ?></span></li>
+                            <li><span class="profile-name">Email:</span><span class="profile-desc"><?php echo $users_email; ?></span></li>
+                            <li><span class="profile-name">Phone Number:</span><span class="profile-desc"><?php echo $users_phone; ?></span></li>
+                            <li><span class="profile-name">Address:</span><span class="profile-desc"><?php echo $users_addrfess; ?></span></li>
                         </ul>
                     </div>
-                </div><!-- end col-lg-8 -->
+                </div>
+                <?php
+                    }
+                ?>
             </div><!-- end row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="copyright-content mt-0 border-top-0 text-center">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <p class="copy__desc">&copy; 2020 Aduca. All Rights Reserved. by <a href="https://themeforest.net/user/techydevs/portfolio">TechyDevs.</a></p>
-                            </div><!-- end col-lg-12 -->
-                        </div><!-- end row -->
-                    </div><!-- end copyright-content -->
-                </div><!-- end col-lg-12 -->
-            </div>
+
+
+            <?php include"inc/copy.php"; ?>
+
+
         </div><!-- end container-fluid -->
     </div><!-- end dashboard-content-wrap -->
 </section><!-- end dashboard-area -->

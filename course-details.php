@@ -16,57 +16,144 @@
    <div class="container">
 		<div class="card">
 			<div class="container-fliud">
+				<?php
+					if (isset($_GET['readid'])) {
+				 		$id = $_GET['readid'];
+				 		$read   = "SELECT * FROM book WHERE book_id = '$id' ";  
+                        $send   = mysqli_query( $db , $read);
+                        while ( $row = mysqli_fetch_assoc($send) ) {
+                            $book_id     = $row['book_id'];
+                            $book_title  = $row['book_title'];
+                            $book_desc   = $row['book_desc'];
+                            $book_cat    = $row['book_cat'];
+                            $book_writer = $row['book_writer'];
+                            $book_pub    = $row['book_pub'];
+                            $book_rel    = $row['book_rel'];
+                            $book_meta   = $row['book_meta'];
+                            $book_img    = $row['book_img'];
+                ?>
 				<div class="wrapper row">
 					<div class="preview col-md-6">
-						
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
+						  <div class="tab-pane active" id="pic-1"><img src="admin/img/shop/<?php echo $book_img; ?>" /></div>
 						</div>
-						<ul class="preview-thumbnail nav nav-tabs">
-						  <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						  <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
-						</ul>
 						
 					</div>
 					<div class="details col-md-6">
-						<h3 class="product-title">men's shoes fashion</h3>
-						<div class="rating">
-							<div class="stars">
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
+						<h3 class="product-title"><?php echo $book_title; ?>
+						</h3>
+						<p class="product-description"><?php echo $book_desc; ?></p>
+	                      <?php
+	                        $par_read_cat = "SELECT * FROM category WHERE cat_id='$book_cat' ";
+	                        $par_send_cat = mysqli_query($db,$par_read_cat);
+	                        while ($row = mysqli_fetch_assoc($par_send_cat) ) {
+	                          $par_cat_id     = $row['cat_id'];
+	                          $par_cat_name   = $row['cat_name'];  
+	                      ?>
+							<h5 class="sizes">Category:
+								<span class="size" ><?php echo $par_cat_name; ?></span>
+							</h5>
+	                      <?php
+	                      	}
+	                      ?>
+						<h5 class="sizes">Writer:
+							<span class="size" ><?php echo $book_writer; ?></span>
+						</h5>
+						<h5 class="sizes">Publication:
+							<span class="size" ><?php echo $book_pub; ?></span>
+						</h5>
+						<h5 class="sizes">Release Date:
+							<span class="size" ><?php echo $book_rel; ?></span>
+						</h5>
+						 <?php
+				            $aut_id = $_SESSION['users_id']; 
+	                        $r = "SELECT * FROM manage WHERE book_id='$id' AND author_id='$aut_id' ";
+	                        $a = mysqli_query($db,$r);
+	                        $n = mysqli_num_rows($a); 
+	                      	if ($n == 1) { ?>
+	                      	<div class="action">
+								<span class="alert alert-warning">You Already Have This Book</span>
 							</div>
-							<span class="review-no">41 reviews</span>
-						</div>
-						<p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-						<h4 class="price">current price: <span>$180</span></h4>
-						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-						<h5 class="sizes">sizes:
-							<span class="size" data-toggle="tooltip" title="small">s</span>
-							<span class="size" data-toggle="tooltip" title="medium">m</span>
-							<span class="size" data-toggle="tooltip" title="large">l</span>
-							<span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-						</h5>
-						<h5 class="colors">colors:
-							<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-							<span class="color green"></span>
-							<span class="color blue"></span>
-						</h5>
-						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
-							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+	                      <?php } else{ ?>
+							<div class="action">
+								<a href="course-details.php?orderid=<?php echo $book_id; ?>" class="add-to-cart btn btn-default" type="button" data-toggle="modal" data-target="#order<?php echo $book_id; ?>"> Book Now </a>
+							</div>
+	                      <?php }
+
+
+	                      ?>
+						<!-- Modal -->
+						<div class="modal fade" id="order<?php echo $book_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+						  <div class="modal-dialog modal-dialog-centered" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLongTitle">Check Out</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      	<?php
+				                    $aut_id = $_SESSION['users_id']; 
+				                    $read   = "SELECT * FROM users WHERE users_id = '$aut_id' ";  
+				                    $rece   = mysqli_query( $db , $read);
+				                    while ( $row = mysqli_fetch_assoc($rece) ) {
+				                        $users_id       = $row['users_id']; 
+				                        $users_name     = $row['users_name']; 
+										$users_phone    = $row['users_phone'];
+										$users_addrfess = $row['users_addrfess'];
+
+				                ?>
+						        <form action="" method="POST" >
+							      <div class="modal-body">
+							        	<input type="hidden" value="<?php echo $users_id; ?>" name="users_id" >
+							        	<input type="hidden" value="<?php echo $book_id; ?>" name="book_id" >
+							        	<div class="form-group">
+							        		<label for="">Name</label>
+							        		<input type="text" readonly value="<?php echo $users_name; ?>" class="form-control" name="name">
+							        	</div>
+							        	<div class="form-group">
+							        		<label for="">Address</label>
+							        		<input type="text" readonly value="<?php echo $users_phone; ?>" class="form-control" name="name">
+							        	</div>
+							        	<div class="form-group">
+							        		<label for="">Phone</label>
+							        		<input type="text" readonly value="<?php echo $users_addrfess; ?>" class="form-control" name="name">
+							        	</div>
+							        	<div class="form-group">
+							        		<label for="">Return Date</label>
+							        		<input type="text" class="form-control" name="date" id="datepicker">
+							        	</div>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							        <button type="submit" name="button" class="btn btn-primary">Complete</button>
+							      </div>
+						        </form>
+						    	<?php } ?>
+						    	<?php 
+						    		if (isset($_POST['button'])) {
+						    			$id   = $_POST['users_id'];
+						    			$book = $_POST['book_id'];
+						    			$date = $_POST['date'];
+
+						    			$sql = "INSERT INTO manage (book_id,author_id,order_date,return_date,is_returned) VALUES ('$book','$id',now(),'$date',1)";
+						    			$con = mysqli_query( $db , $sql );
+						    			if ($con) {
+						    				header("location:dashboard-enrolled-courses.php");
+						    			}else{
+						    				die("Something Error");
+						    			}
+						    		}
+						    	?>
+						    </div>
+						  </div>
 						</div>
 					</div>
 				</div>
+                <?php
+                        }    
+					}
+				?>
 			</div>
 		</div>
 	</div>

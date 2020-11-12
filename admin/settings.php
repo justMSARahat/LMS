@@ -139,42 +139,100 @@
                     </form>
 
                     <?php 
-                      if (isset($_GET['Update'])) {
+                      if (isset($_POST['Update'])) {
                         $name      = $_POST['name'];
                         $address   = $_POST['address'];  
                         $email     = $_POST['email']; 
                         $phone     = $_POST['phone'];
                         $currency  = $_POST['currency'];
                         $terms     = $_POST['terms'];
-                        $logo      = $_POST['logo']['name'];
-                        $logotmp      = $_POST['logo']['tmp_name'];
-                        $favicon   = $_POST['favicon']['name'];
-                        $favicontmp   = $_POST['favicon']['tmp_name'];
+                        $logo      = $_FILES['logo']['name'];
+                        $logotmp   = $_FILES['logo']['tmp_name'];
+                        $favicon   = $_FILES['favicon']['name'];
+                        $favicontmp= $_FILES['favicon']['tmp_name'];
                       
-if (!empty($logo) && !empty($favicon) ) {
-              $remove = "SELECT * FROM settings";
-              $cmd    = mysqli_query($db,$remove);
-              while ($row = mysqli_fetch_assoc($cmd) ) {
-                $logo    = $row['logo']; 
-                $favicon = $row['favicon']; 
-              }
-              unlink("img/website/".$logo);
-              unlink("img/website/".$favicon);
+                   if (!empty($logo) && !empty($favicon) ) {
+                    $remove = "SELECT * FROM settings";
+                    $cmd    = mysqli_query($db,$remove);
+                    while ($row = mysqli_fetch_assoc($cmd) ) {
+                      $logo    = $row['logo']; 
+                      $favicon = $row['favicon']; 
+                    }
+                    unlink("img/website/".$logo);
+                    unlink("img/website/".$favicon);
 
-              $icon = rand(1, 99999).'_'.$logo;
-              move_uploaded_file($logotmp, "img/website/$logo");
-              
-              $favicon = rand(1, 99999).'_'.$favicon;
-              move_uploaded_file($favicontmp, "img/website/$favicon");
+                    $icon1 = rand(1, 99999).'_'.$logo;
+                    move_uploaded_file($logotmp, "img/website/$icon1");
+                    
+                    $favicon1 = rand(1, 99999).'_'.$favicon;
+                    move_uploaded_file($favicontmp, "img/website/$favicon1");
 
-              $sql = "UPDATE settings SET name='$name',address='$address',email='$email',phone='$phone',logo='$icon',favicon='$favicon',currency='$currency',terms='$terms' WHERE id = 1";
-              $query = mysqli_query($db , $sql);
-              if ($query) {
-                header("location:settings.php");
-              }else{
-                die("Failed". mysqli_error($db) );
-              }
-            }
+                    $sql = "UPDATE settings SET name='$name',address='$address',email='$email',phone='$phone',logo='$icon1',favicon='$favicon1',currency='$currency',terms='$terms' WHERE id = 1";
+                    $query = mysqli_query($db , $sql);
+                    if ($query) {
+                      header("location:settings.php");
+                    }else{
+                      die("Failed". mysqli_error($db) );
+                    }
+                  }
+                      
+                  else if (!empty($logo) && empty($favicon) ) {
+                    $remove = "SELECT * FROM settings";
+                    $cmd    = mysqli_query($db,$remove);
+                    while ($row = mysqli_fetch_assoc($cmd) ) {
+                      $logo    = $row['logo']; 
+                    }
+                    unlink("img/website/".$logo);
+
+                    $icon1 = rand(1, 99999).'_'.$logo;
+                    move_uploaded_file($logotmp, "img/website/$logo1");
+
+                    $sql = "UPDATE settings SET name='$name',address='$address',email='$email',phone='$phone',logo='$icon1',currency='$currency',terms='$terms' WHERE id = 1";
+                    $query = mysqli_query($db , $sql);
+                    if ($query) {
+                      header("location:settings.php");
+                    }else{
+                      die("Failed". mysqli_error($db) );
+                    }
+                  }
+                      
+                  else if (!empty($favicon) && empty($logo) ) {
+                    $remove = "SELECT * FROM settings";
+                    $cmd    = mysqli_query($db,$remove);
+                    while ($row = mysqli_fetch_assoc($cmd) ) {
+                      $favicon = $row['favicon']; 
+                    }
+                    unlink("img/website/".$favicon);
+                    
+                    $favicon1 = rand(1, 99999).'_'.$favicon;
+                    move_uploaded_file($favicontmp, "img/website/$favicon1");
+
+                    $sql = "UPDATE settings SET name='$name',address='$address',email='$email',phone='$phone',favicon='$favicon1',currency='$currency',terms='$terms' WHERE id = 1";
+                    $query = mysqli_query($db , $sql);
+                    if ($query) {
+                      header("location:settings.php");
+                    }else{
+                      die("Failed". mysqli_error($db) );
+                    }
+                  }
+                      
+                  else {
+
+                    $sql = "UPDATE settings SET name='$name',address='$address',email='$email',phone='$phone',currency='$currency',terms='$terms' WHERE id = 1";
+                    $query = mysqli_query($db , $sql);
+                    if ($query) {
+                      header("location:settings.php");
+                    }else{
+                      die("Failed". mysqli_error($db) );
+                    }
+                  
+                  }
+                      
+                  
+
+                     
+
+
 
 
                       }

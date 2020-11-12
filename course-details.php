@@ -77,7 +77,7 @@
 		                        $n = mysqli_num_rows($a); 
 		                      	if ($n == 1) { ?>
 		                      	<div class="action">
-									<span class="alert alert-warning">You Already Have This Book</span>
+									<span class="alert alert-warning">You Already Have This Book. Cancel It From Your <a href="dashboard-enrolled-courses.php">Admin Panel</a></span>
 								</div>
 		                      <?php } else{ ?>
 								<div class="action">

@@ -65,178 +65,140 @@
                                         $read   = "SELECT * FROM manage WHERE author_id = '$aut_id' AND is_returned = 1 ";  
                                         $rece   = mysqli_query( $db , $read);
                                         while ( $row = mysqli_fetch_assoc($rece) ) {
-                                            extract($row);
+                                          $id          = $row['id'];
+                                          $book_id     = $row['book_id'];
+                                          $author_id   = $row['author_id'];
+                                          $order_date  = $row['order_date'];
+                                          $return_date = $row['return_date'];
+                                          $is_returned = $row['is_returned'];
                                       ?>
                                        <div class="card-item card-list-layout">
                                           <?php
-                                            $book_id= $_row['book_id']; 
+                                            $book_id= $row['book_id']; 
                                             $read   = "SELECT * FROM book WHERE book_id = '$book_id' ";  
                                             $rec   = mysqli_query( $db , $read);
                                             while ( $row = mysqli_fetch_assoc($rec) ) {
-                                                extract($row);
-                                            }
+                                              $book_id     = $row['book_id'];
+                                              $book_title  = $row['book_title'];
+                                              $book_desc   = $row['book_desc'];
+                                              $book_cat    = $row['book_cat'];
+                                              $book_writer = $row['book_writer'];
+                                              $book_pub    = $row['book_pub'];
+                                              $book_rel    = $row['book_rel'];
+                                              $book_meta   = $row['book_meta'];
+                                              $book_img    = $row['book_img'];
                                           ?>
                                            <div class="card-image">
-                                               <a href="course-details.html" class="card__img"><img src="images/img8.jpg" alt=""></a>
+                                               <a href="course-details.php?readid=<?php echo $book_id; ?>" class="card__img"><img src="admin/img/shop/<?php echo $book_img; ?>" alt=""></a>
                                            </div><!-- end card-image -->
                                            <div class="card-content">
                                                <h3 class="card__title">
-                                                   <a href="course-details.html">Designing a Responsive Mobile Website with Muse</a>
+                                                   <a href="course-details.php?readid=<?php echo $book_id; ?>"><?php echo $book_title; ?></a>
                                                </h3>
                                                <p class="card__author">
-                                                   <a href="teacher-detail.html">kamran paul</a>
+                                                   <a href="course-details.php?readid=<?php echo $book_id; ?>"><b>Writer :</b><?php echo $book_writer; ?></a>
                                                </p>
-                                               <div class="card-action mt-2">
-                                                   <ul class="card-duration d-flex">
-                                                       <li>
-                                                            <span class="meta__date">
-                                                                <span class="status-text">Total Courses:</span>
-                                                                <span class="status-text primary-color-3">5</span>
-                                                            </span>
-                                                       </li>
-                                                       <li>
-                                                            <span class="meta__date">
-                                                                <span class="status-text">Completed Courses:</span>
-                                                                <span class="status-text primary-color-3">5/5</span>
-                                                            </span>
-                                                       </li>
-                                                   </ul>
-                                               </div><!-- end card-action -->
-                                               <div class="progress-bar-wrap mb-3">
-                                                   <div class="progress-item course-complete-bar">
-                                                       <p class="skillbar-title">Complete</p>
-                                                       <div class="skillbar-box">
-                                                           <div class="skillbar" data-percent="100%">
-                                                               <div class="skillbar-bar skillbar-bar-1"></div>
-                                                           </div> <!-- End Skill Bar -->
-                                                       </div>
-                                                       <div class="skill-bar-percent">100%</div>
-                                                   </div>
+                                               <p class="card__author">
+                                                   <a href="course-details.php?readid=<?php echo $book_id; ?>"><b>Publication :</b><?php echo $book_pub; ?></a>
+                                               </p>
+                                               <p class="card__author">
+                                                   <a href="course-details.php?readid=<?php echo $book_id; ?>" ><b>Release Date :</b><?php echo $book_rel; ?></a>
+                                               </p>
+                                               <div class="action">
+                                                  <a href="dashboard-enrolled-courses.php?id=<?php echo $id; ?>" class="add-to-cart btn btn-default h1_1" type="button" data-toggle="modal" data-target="#delete<?php echo $id; ?>"> Return it </a>
                                                </div>
-                                               <div class="rating-wrap d-flex">
-                                                   <div class="rating-shared">
-                                                       <fieldset>
-                                                           <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Outstanding"></label>
-                                                           <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Very Good"></label>
-                                                           <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Good"></label>
-                                                           <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Poor"></label>
-                                                           <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Very Poor"></label>
-                                                       </fieldset>
-                                                   </div>
-                                                   <p class="primary-color-3 ml-2">Leave a Rating</p>
-                                               </div>
+                                                <!-- Modal -->
+                                                    <div class="modal fade" id="delete<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Confirmation</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                              <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            Confirm to Cancel this ?
+                                                          </div>
+                                                          <form action="" method="POST">
+                                                            <div class="modal-footer">
+                                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                              <a href="dashboard-enrolled-courses.php?id=<?php echo $id; ?>" class="btn btn-primary">Confirm</a>
+                                                            </div>
+                                                            <?php 
+                                                              if (isset($_GET['id']) ) {
+                                                                $back_id = $_GET['id'];
+                                                                $sqla = "UPDATE manage SET is_returned ='0' WHERE id = '$back_id' ";
+                                                                $cona = mysqli_query( $db , $sqla );
+                                                                if ($cona) {
+                                                                  header("location:dashboard-enrolled-courses.php");
+                                                                }else{
+                                                                  die("Something Error " . mysqli_error($db) );
+                                                                }
+                                                              }  
+                                                             ?>
+                                                          </form>
+                                                        </div>
+                                                      </div>
+                                                    </div>
                                            </div><!-- end card-content -->
+                                          <?php } ?>
+
                                        </div><!-- end card-item -->
 
                                       <?php } ?> 
-
-                                       
                                    </div><!-- end tab-pane-->
                                    <div role="tabpanel" class="tab-pane fade" id="returned">
+                                     <?php
+                                        $aut_id = $_SESSION['users_id']; 
+                                        $read   = "SELECT * FROM manage WHERE author_id = '$aut_id' AND is_returned = 0 ";  
+                                        $rece   = mysqli_query( $db , $read);
+                                        while ( $row = mysqli_fetch_assoc($rece) ) {
+                                          $id          = $row['id'];
+                                          $book_id     = $row['book_id'];
+                                          $author_id   = $row['author_id'];
+                                          $order_date  = $row['order_date'];
+                                          $return_date = $row['return_date'];
+                                          $is_returned = $row['is_returned'];
+                                      ?>
                                        <div class="card-item card-list-layout">
+                                          <?php
+                                            $book_id= $row['book_id']; 
+                                            $read   = "SELECT * FROM book WHERE book_id = '$book_id' ";  
+                                            $rec   = mysqli_query( $db , $read);
+                                            while ( $row = mysqli_fetch_assoc($rec) ) {
+                                              $book_id     = $row['book_id'];
+                                              $book_title  = $row['book_title'];
+                                              $book_desc   = $row['book_desc'];
+                                              $book_cat    = $row['book_cat'];
+                                              $book_writer = $row['book_writer'];
+                                              $book_pub    = $row['book_pub'];
+                                              $book_rel    = $row['book_rel'];
+                                              $book_meta   = $row['book_meta'];
+                                              $book_img    = $row['book_img'];
+                                          ?>
                                            <div class="card-image">
-                                               <a href="course-details.html" class="card__img"><img src="images/img8.jpg" alt=""></a>
+                                               <a href="course-details.php?readid=<?php echo $book_id; ?>" class="card__img"><img src="admin/img/shop/<?php echo $book_img; ?>" alt=""></a>
                                            </div><!-- end card-image -->
                                            <div class="card-content">
                                                <h3 class="card__title">
-                                                   <a href="course-details.html">Designing a Responsive Mobile Website with Muse</a>
+                                                   <a href="course-details.php?readid=<?php echo $book_id; ?>"><?php echo $book_title; ?></a>
                                                </h3>
                                                <p class="card__author">
-                                                   <a href="teacher-detail.html">kamran paul</a>
+                                                   <a href="course-details.php?readid=<?php echo $book_id; ?>"><b>Writer :</b><?php echo $book_writer; ?></a>
                                                </p>
-                                               <div class="card-action mt-2">
-                                                   <ul class="card-duration d-flex">
-                                                       <li>
-                                                            <span class="meta__date">
-                                                                <span class="status-text">Total Courses:</span>
-                                                                <span class="status-text primary-color-3">5</span>
-                                                            </span>
-                                                       </li>
-                                                       <li>
-                                                            <span class="meta__date">
-                                                                <span class="status-text">Completed Courses:</span>
-                                                                <span class="status-text primary-color-3">0/5</span>
-                                                            </span>
-                                                       </li>
-                                                   </ul>
-                                               </div><!-- end card-action -->
-                                               <div class="progress-bar-wrap mb-3">
-                                                   <div class="progress-item course-complete-bar">
-                                                       <p class="skillbar-title">Complete</p>
-                                                       <div class="skillbar-box">
-                                                           <div class="skillbar" data-percent="0%">
-                                                               <div class="skillbar-bar skillbar-bar-1"></div>
-                                                           </div> <!-- End Skill Bar -->
-                                                       </div>
-                                                       <div class="skill-bar-percent">0%</div>
-                                                   </div>
-                                               </div>
-                                               <div class="rating-wrap d-flex">
-                                                   <div class="rating-shared">
-                                                       <fieldset>
-                                                           <input type="radio" id="star16" name="rating" value="5" /><label for="star16" title="Outstanding"></label>
-                                                           <input type="radio" id="star17" name="rating" value="4" /><label for="star17" title="Very Good"></label>
-                                                           <input type="radio" id="star18" name="rating" value="3" /><label for="star18" title="Good"></label>
-                                                           <input type="radio" id="star19" name="rating" value="2" /><label for="star19" title="Poor"></label>
-                                                           <input type="radio" id="star20" name="rating" value="1" /><label for="star20" title="Very Poor"></label>
-                                                       </fieldset>
-                                                   </div>
-                                                   <p class="primary-color-3 ml-2">Leave a Rating</p>
-                                               </div>
-                                           </div><!-- end card-content -->
-                                       </div><!-- end card-item -->
-                                       <div class="card-item card-list-layout">
-                                           <div class="card-image">
-                                               <a href="course-details.html" class="card__img"><img src="images/img10.jpg" alt=""></a>
-                                           </div><!-- end card-image -->
-                                           <div class="card-content">
-                                               <h3 class="card__title">
-                                                   <a href="course-details.html">Designing a Responsive Mobile Website with Muse</a>
-                                               </h3>
                                                <p class="card__author">
-                                                   <a href="teacher-detail.html">kamran paul</a>
+                                                   <a href="course-details.php?readid=<?php echo $book_id; ?>"><b>Publication :</b><?php echo $book_pub; ?></a>
                                                </p>
-                                               <div class="card-action mt-2">
-                                                   <ul class="card-duration d-flex">
-                                                       <li>
-                                                            <span class="meta__date">
-                                                                <span class="status-text">Total Courses:</span>
-                                                                <span class="status-text primary-color-3">5</span>
-                                                            </span>
-                                                       </li>
-                                                       <li>
-                                                            <span class="meta__date">
-                                                                <span class="status-text">Completed Courses:</span>
-                                                                <span class="status-text primary-color-3">2/5</span>
-                                                            </span>
-                                                       </li>
-                                                   </ul>
-                                               </div><!-- end card-action -->
-                                               <div class="progress-bar-wrap mb-3">
-                                                   <div class="progress-item course-complete-bar">
-                                                       <p class="skillbar-title">Complete</p>
-                                                       <div class="skillbar-box">
-                                                           <div class="skillbar" data-percent="30%">
-                                                               <div class="skillbar-bar skillbar-bar-1"></div>
-                                                           </div> <!-- End Skill Bar -->
-                                                       </div>
-                                                       <div class="skill-bar-percent">30%</div>
-                                                   </div>
-                                               </div>
-                                               <div class="rating-wrap d-flex">
-                                                   <div class="rating-shared">
-                                                       <fieldset>
-                                                           <input type="radio" id="star21" name="rating" value="5" /><label for="star21" title="Outstanding"></label>
-                                                           <input type="radio" id="star22" name="rating" value="4" /><label for="star22" title="Very Good"></label>
-                                                           <input type="radio" id="star23" name="rating" value="3" /><label for="star23" title="Good"></label>
-                                                           <input type="radio" id="star24" name="rating" value="2" /><label for="star24" title="Poor"></label>
-                                                           <input type="radio" id="star25" name="rating" value="1" /><label for="star25" title="Very Poor"></label>
-                                                       </fieldset>
-                                                   </div>
-                                                   <p class="primary-color-3 ml-2">Leave a Rating</p>
-                                               </div>
+                                               <p class="card__author">
+                                                   <a href="course-details.php?readid=<?php echo $book_id; ?>"><b>Release Date :</b><?php echo $book_rel; ?></a>
+                                               </p>
                                            </div><!-- end card-content -->
+                                          <?php } ?>
+
                                        </div><!-- end card-item -->
+
+                                      <?php } ?> 
                                    </div><!-- end tab-pane-->
                                    
                                </div><!-- end tab-content -->

@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="css/jqvmap.css">
     <link rel="stylesheet" href="css/ecode.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="style.css">
     <!-- end inject -->
 </head>
 <body>

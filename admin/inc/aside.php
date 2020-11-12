@@ -83,19 +83,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="manage.php?action=or" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ordered</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
+                <a href="manage.php?action=re" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>In Stock</p>
+                  <p>Returned</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
+                <a href="manage.php?action=inv" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Invoices</p>
                 </a>
@@ -105,6 +105,36 @@
 
 
           <li class="nav-header">Backend Feature</li>    
+          
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Front End Users
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="front-user.php?action=manage" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage All User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="front-user.php?action=add" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="front-user.php?action=pending" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pending User</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">

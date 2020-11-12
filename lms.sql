@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2020 at 05:18 AM
+-- Generation Time: Nov 12, 2020 at 12:59 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.33
 
@@ -46,10 +46,10 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`book_id`, `book_title`, `book_desc`, `book_cat`, `book_writer`, `book_pub`, `stock`, `book_rel`, `book_meta`, `book_img`, `trash`) VALUES
-(1, 'Bangla 1st', '<p>Bangla 1st&quot; &gt;</p>\r\n', 30, 'MSA Rahat', 'Rahat Publication', 0, '2020-11-09', 'hello', '10206_FB_IMG_16005069901605551.jpg', 0),
-(2, 'eng1st', '<p>Bangla 2st&quot; &gt;</p>\r\n', 30, 'MSA Rahat', 'Rahat Publication', 10, '2020-11-09', 'hello', '53173_FB_IMG_16005069901605551.jpg', 0),
-(4, 'math 1st', '<p>Bangla 3st&quot; &gt;</p>\r\n', 30, 'MSA Rahat', 'Rahat Publication', 10, '2020-11-09', 'hello', '58094_FB_IMG_16005069901605551.jpg', 0),
-(5, 'AMA', '<p>dfgsdfgbs</p>\r\n\r\n<p>&quot; &gt;</p>\r\n', 30, 'dfsgs', 'sdfgas', 5, '2020-11-09', 'cxzv', '54780_FB_IMG_16005069901605551.jpg', 0),
+(1, 'English For Today', '<p>English For Today</p>\r\n', 30, 'MSA Rahat', 'Rahat Publication', 1, '2020-11-09', 'hello', '10206_FB_IMG_16005069901605551.jpg', 0),
+(2, 'প্রাক-প্রাথমিক/ প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা', '<p>প্রাক-প্রাথমিক/ প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা</p>\r\n', 30, 'MSA Rahat', 'Rahat Publication', 10, '2020-11-09', 'hello', '53173_FB_IMG_16005069901605551.jpg', 0),
+(4, 'প্রাক-প্রাথমিক/ প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা', '<p>প্রাক-প্রাথমিক/ প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা</p>\r\n', 30, 'MSA Rahat', 'Rahat Publication', 10, '2020-11-09', 'hello', '58094_FB_IMG_16005069901605551.jpg', 0),
+(5, 'Bangla 1st paper HSC', '<p>Bangla 1st paper HSC</p>\r\n', 30, 'Numania', 'Numania', 5, '2020-11-09', 'Numania', '54780_FB_IMG_16005069901605551.jpg', 0),
 (6, 'প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা', '<p>&quot; &gt;</p>\r\n', 29, ' এফ. এম. রহমান (প্রাশিঅ)', 'সেঞ্চুরি প্রকাশনী', 3, '2020-11-12', 'প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা', '59510_pngtree-hand-drawn-cartoon-a-pile-of-books-and-a-pencil-element-png-image_636359.jpg', 0),
 (7, 'প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা', '<h1>প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা</h1>\r\n\r\n<p>&quot; &gt;</p>\r\n', 31, 'অজয় সরকার', 'জয়কলি পাবলিকেশন্স লিঃ', 1, '2020-11-12', 'প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা', '11867_pngtree-hand-drawn-cartoon-a-pile-of-books-and-a-pencil-element-png-image_636359.jpg', 0),
 (8, 'প্রাক-প্রাথমিক/ প্রাথমিক সহকারী শিক্ষক নিয়োগ সহায়িকা', '', 30, 'গোল্ডেন প্লাস প্রকাশনী', 'গোল্ডেন প্লাস প্রকাশনী', 1, '2020-11-12', 'গোল্ডেন প্লাস প্রকাশনী', '53276_pngtree-hand-drawn-cartoon-a-pile-of-books-and-a-pencil-element-png-image_636359.jpg', 0);
@@ -99,9 +99,11 @@ CREATE TABLE `manage` (
 --
 
 INSERT INTO `manage` (`id`, `book_id`, `author_id`, `order_date`, `return_date`, `is_returned`) VALUES
-(8, 5, 2, '2020-11-11', '0000-00-00', 1),
+(8, 5, 2, '2020-11-11', '0000-00-00', 0),
 (11, 1, 4, '2020-11-11', '0000-00-00', 0),
-(14, 1, 2, '2020-11-12', '0000-00-00', 1);
+(14, 1, 2, '2020-11-12', '0000-00-00', 0),
+(15, 8, 2, '2020-11-12', '0000-00-00', 1),
+(16, 1, 2, '2020-11-12', '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -144,7 +146,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `name`, `address`, `email`, `phone`, `logo`, `favicon`, `currency`, `terms`) VALUES
-(1, 'MSA Industry', 'Subhanighat', 'just@gmail.com', '01756689907', '', '', 'USD', 'Hello');
+(1, 'SA Industry', 'Subhanighat,Sylhet', 'justshamsulalom@gmail.com', '01756689907', '', '', 'BDT', 'justshamsulalom@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -266,7 +268,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `manage`
 --
 ALTER TABLE `manage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `post`

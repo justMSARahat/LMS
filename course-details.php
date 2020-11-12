@@ -72,7 +72,7 @@
       					  <?php	} else if( !empty($_SESSION['users_email']) || !empty($_SESSION['users_password']) || $_SESSION['users_status'] = 1 ) { ?>
 						 <?php
 					            $aut_id = $_SESSION['users_id']; 
-		                        $r = "SELECT * FROM manage WHERE book_id='$id' AND author_id='$aut_id' ";
+		                        $r = "SELECT * FROM manage WHERE book_id='$id' AND author_id='$aut_id' AND is_returned=1 ";
 		                        $a = mysqli_query($db,$r);
 		                        $n = mysqli_num_rows($a); 
 		                      	if ($n == 1) { ?>
